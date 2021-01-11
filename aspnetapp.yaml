@@ -38,6 +38,7 @@ spec:
   rules:
   - http:
       paths:
+      - pathType: Prefix
       - path: /
         backend:
           service:
