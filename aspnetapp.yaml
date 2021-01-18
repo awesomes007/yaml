@@ -31,7 +31,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: aspnetapp
+  name: aspnetapp-private
   annotations:
     kubernetes.io/ingress.class: azure/application-gateway
     appgw.ingress.kubernetes.io/use-private-ip: "true"
@@ -39,6 +39,7 @@ spec:
   rules:
   - http:
       paths:
+      - host: internal.dev.id.sso.solidstateops.com 
       - path: /
         pathType: Prefix
         backend:
@@ -46,3 +47,87 @@ spec:
             name: aspnetapp
             port: 
               number: 80
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: aspnetapp-public
+  annotations:
+    kubernetes.io/ingress.class: azure/application-gateway
+    appgw.ingress.kubernetes.io/use-private-ip: "false"
+spec:
+  rules:
+  - host: dev.id.sso.solidstateops.com 
+    http:
+      paths:
+        - backend:
+            serviceName: aspnetapp
+            servicePort: 80
+
+
+
+# apiVersion: v1
+# kind: Pod
+# metadata:
+#   name: aspnetapp
+#   labels:
+#     app: aspnetapp
+# spec:
+#   containers:
+#   - image: "mcr.microsoft.com/dotnet/core/samples:aspnetapp"
+#     name: aspnetapp-image
+#     ports:
+#     - containerPort: 80
+#       protocol: TCP
+
+# ---
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: aspnetapp
+# spec:
+#   selector:
+#     app: aspnetapp
+#   ports:
+#   - protocol: TCP
+#     port: 80
+#     targetPort: 80
+
+# ---
+
+# apiVersion: networking.k8s.io/v1beta1 
+# kind: Ingress
+# metadata:
+#   name: aspnetapp-private
+#   annotations:
+#     kubernetes.io/ingress.class: azure/application-gateway
+#     appgw.ingress.kubernetes.io/use-private-ip: "true"
+# spec:
+#   rules:
+#   - host:
+#     http:
+#       paths:
+#         - backend: 
+#             serviceName: aspnetapp
+#             servicePort: 80
+
+# ---
+
+# apiVersion: networking.k8s.io/v1beta1
+# kind: Ingress
+# metadata:
+#   name: aspnetapp-public
+#   annotations:
+#     kubernetes.io/ingress.class: azure/application-gateway
+#     appgw.ingress.kubernetes.io/use-private-ip: "false"
+# spec:
+#   rules:
+#   - host:
+#     http:
+#       paths:
+#         - backend:
+#             serviceName: aspnetapp
+#             servicePort: 80
