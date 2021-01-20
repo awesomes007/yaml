@@ -37,12 +37,14 @@ metadata:
     appgw.ingress.kubernetes.io/use-private-ip: "false"
 spec:
   rules:
-  - host: dev.id.sso.solidstateops.com 
+  - host: "dev.id.sso.solidstateops.com" 
     http:
       paths:
-        - backend:
-            serviceName: aspnetapp
-            servicePort: 80
+        backend:
+          service:
+            name: aspnetapp
+            port: 
+              number: 80
 
 ---
 
@@ -55,133 +57,11 @@ metadata:
     appgw.ingress.kubernetes.io/use-private-ip: "true"
 spec:
   rules:
-  - host: internal.dev.id.sso.solidstateops.com 
+  - host: "internal.dev.id.sso.solidstateops.com" 
     http:
       paths:
-        - backend:
-            serviceName: aspnetapp
-            servicePort: 80
-
-
-
-# service/aspnetapp created
-# error: error validating "https://raw.githubusercontent.com/awesomes007/yaml/main/aspnetapp.yaml": 
-# error validating data: [ValidationError(Ingress.spec.rules[0].http.paths[0]): unknown field "host" 
-# in io.k8s.api.networking.v1.HTTPIngressPath, ValidationError(Ingress.spec.rules[0].http.paths[0]): 
-# missing required field "backend" in io.k8s.api.networking.v1.HTTPIngressPath]; if you choose to ignore 
-# these errors, turn validation off with --validate=false
-
-#my original block that was working before 
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: aspnetapp-private
-#   annotations:
-#     kubernetes.io/ingress.class: azure/application-gateway
-#     appgw.ingress.kubernetes.io/use-private-ip: "true"
-# spec:
-#   rules:
-#   - http:
-#       paths:
-#       - host: internal.dev.id.sso.solidstateops.com 
-#       - path: /
-#         pathType: Prefix
-#         backend:
-#           service:
-#             name: aspnetapp
-#             port: 
-#               number: 80
-
-
-#version of block matching my syntax - attempt to fix error - this is the public ingress
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: aspnetapp-public
-#   annotations:
-#     kubernetes.io/ingress.class: azure/application-gateway
-#     appgw.ingress.kubernetes.io/use-private-ip: "false"
-# spec:
-#   rules:
-#   - http:
-#       paths:
-#       - host: dev.id.sso.solidstateops.com 
-#       - path: /
-#         pathType: Prefix
-#         backend:
-#           service:
-#             name: aspnetapp
-#             port: 
-#               number: 80
-
-
-
-
-
-
-
-
-
-# apiVersion: v1
-# kind: Pod
-# metadata:
-#   name: aspnetapp
-#   labels:
-#     app: aspnetapp
-# spec:
-#   containers:
-#   - image: "mcr.microsoft.com/dotnet/core/samples:aspnetapp"
-#     name: aspnetapp-image
-#     ports:
-#     - containerPort: 80
-#       protocol: TCP
-
-# ---
-
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: aspnetapp
-# spec:
-#   selector:
-#     app: aspnetapp
-#   ports:
-#   - protocol: TCP
-#     port: 80
-#     targetPort: 80
-
-# ---
-
-# apiVersion: networking.k8s.io/v1beta1 
-# kind: Ingress
-# metadata:
-#   name: aspnetapp-private
-#   annotations:
-#     kubernetes.io/ingress.class: azure/application-gateway
-#     appgw.ingress.kubernetes.io/use-private-ip: "true"
-# spec:
-#   rules:
-#   - host:
-#     http:
-#       paths:
-#         - backend: 
-#             serviceName: aspnetapp
-#             servicePort: 80
-
-# ---
-
-# apiVersion: networking.k8s.io/v1beta1
-# kind: Ingress
-# metadata:
-#   name: aspnetapp-public
-#   annotations:
-#     kubernetes.io/ingress.class: azure/application-gateway
-#     appgw.ingress.kubernetes.io/use-private-ip: "false"
-# spec:
-#   rules:
-#   - host:
-#     http:
-#       paths:
-#         - backend:
-#             serviceName: aspnetapp
-#             servicePort: 80
+        backend:
+          service:
+            name: aspnetapp
+            port: 
+              number: 80
