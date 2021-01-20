@@ -38,10 +38,10 @@ metadata:
 spec:
   rules:
   - host: internal.dev.id.sso.solidstateops.com
-  - http:
+    http:
       paths:      
-      - path: /
-        pathType: Prefix
+      - pathType: Prefix
+        path: /
         backend:
           service:
             name: aspnetapp
