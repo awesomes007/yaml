@@ -59,12 +59,41 @@ metadata:
     appgw.ingress.kubernetes.io/use-private-ip: "false"
 spec:
   rules:
-  - host: dev.id.sso.solidstateops.com 
-    http:
+  - http:
       paths:
-        - backend:
-            serviceName: aspnetapp
-            servicePort: 80
+      - host: dev.id.sso.solidstateops.com 
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: aspnetapp
+            port: 
+              number: 80
+
+
+# service/aspnetapp created
+# error: error validating "https://raw.githubusercontent.com/awesomes007/yaml/main/aspnetapp.yaml": 
+# error validating data: [ValidationError(Ingress.spec.rules[0].http.paths[0]): unknown field "host" 
+# in io.k8s.api.networking.v1.HTTPIngressPath, ValidationError(Ingress.spec.rules[0].http.paths[0]): 
+# missing required field "backend" in io.k8s.api.networking.v1.HTTPIngressPath]; if you choose to ignore 
+# these errors, turn validation off with --validate=false
+
+
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: aspnetapp-public
+#   annotations:
+#     kubernetes.io/ingress.class: azure/application-gateway
+#     appgw.ingress.kubernetes.io/use-private-ip: "false"
+# spec:
+#   rules:
+#   - host: dev.id.sso.solidstateops.com 
+#     http:
+#       paths:
+#         - backend:
+#             serviceName: aspnetapp
+#             servicePort: 80
 
 
 
