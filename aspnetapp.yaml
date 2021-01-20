@@ -41,6 +41,7 @@ spec:
       http:
         paths:
         - path: /
+          pathType: Prefix
           backend:
             service:
               name: aspnetapp
@@ -62,6 +63,7 @@ spec:
       http:
         paths:
         - path: /
+          pathType: Prefix
           backend:
             service:
               name: aspnetapp
