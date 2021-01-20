@@ -31,44 +31,37 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: aspnetapp-private
-  annotations:
-    kubernetes.io/ingress.class: azure/application-gateway
-    appgw.ingress.kubernetes.io/use-private-ip: "true"
-spec:
-  rules:
-  - http:
-      paths:
-      - host: internal.dev.id.sso.solidstateops.com 
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: aspnetapp
-            port: 
-              number: 80
-
----
-
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
   name: aspnetapp-public
   annotations:
     kubernetes.io/ingress.class: azure/application-gateway
     appgw.ingress.kubernetes.io/use-private-ip: "false"
 spec:
   rules:
-  - http:
+  - host: dev.id.sso.solidstateops.com 
+    http:
       paths:
-      - host: dev.id.sso.solidstateops.com 
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: aspnetapp
-            port: 
-              number: 80
+        - backend:
+            serviceName: aspnetapp
+            servicePort: 80
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: aspnetapp-private
+  annotations:
+    kubernetes.io/ingress.class: azure/application-gateway
+    appgw.ingress.kubernetes.io/use-private-ip: "true"
+spec:
+  rules:
+  - host: internal.dev.id.sso.solidstateops.com 
+    http:
+      paths:
+        - backend:
+            serviceName: aspnetapp
+            servicePort: 80
+
 
 
 # service/aspnetapp created
@@ -78,7 +71,29 @@ spec:
 # missing required field "backend" in io.k8s.api.networking.v1.HTTPIngressPath]; if you choose to ignore 
 # these errors, turn validation off with --validate=false
 
+#my original block that was working before 
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: aspnetapp-private
+#   annotations:
+#     kubernetes.io/ingress.class: azure/application-gateway
+#     appgw.ingress.kubernetes.io/use-private-ip: "true"
+# spec:
+#   rules:
+#   - http:
+#       paths:
+#       - host: internal.dev.id.sso.solidstateops.com 
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: aspnetapp
+#             port: 
+#               number: 80
 
+
+#version of block matching my syntax - attempt to fix error - this is the public ingress
 # apiVersion: networking.k8s.io/v1
 # kind: Ingress
 # metadata:
@@ -88,12 +103,22 @@ spec:
 #     appgw.ingress.kubernetes.io/use-private-ip: "false"
 # spec:
 #   rules:
-#   - host: dev.id.sso.solidstateops.com 
-#     http:
+#   - http:
 #       paths:
-#         - backend:
-#             serviceName: aspnetapp
-#             servicePort: 80
+#       - host: dev.id.sso.solidstateops.com 
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: aspnetapp
+#             port: 
+#               number: 80
+
+
+
+
+
+
 
 
 
