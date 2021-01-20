@@ -40,6 +40,8 @@ spec:
   - host: "dev.id.sso.solidstateops.com" 
     http:
       paths:
+        pathType: Prefix
+        path: "/"
         backend:
           service:
             name: aspnetapp
@@ -60,6 +62,8 @@ spec:
   - host: "internal.dev.id.sso.solidstateops.com" 
     http:
       paths:
+        pathType: Prefix
+        path: "/"
         backend:
           service:
             name: aspnetapp
