@@ -28,25 +28,47 @@ spec:
 
 ---
 
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: aspnetapp-public
-  annotations:
-    kubernetes.io/ingress.class: azure/application-gateway
-    appgw.ingress.kubernetes.io/use-private-ip: "false"
-spec:
-  rules:
-    - host: "dev.id.sso.solidstateops.com" 
-      http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: aspnetapp
-              port: 
-                number: 80
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: aspnetapp-public
+#   annotations:
+#     kubernetes.io/ingress.class: azure/application-gateway
+#     appgw.ingress.kubernetes.io/use-private-ip: "false"
+# spec:
+#   rules:
+#     - host: "dev.id.sso.solidstateops.com" 
+#       http:
+#         paths:
+#         - path: /
+#           pathType: Prefix
+#           backend:
+#             service:
+#               name: aspnetapp
+#               port: 
+#                 number: 80
+
+# ---
+
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: aspnetapp-private
+#   annotations:
+#     kubernetes.io/ingress.class: azure/application-gateway
+#     appgw.ingress.kubernetes.io/use-private-ip: "true"
+# spec:
+#   rules:
+#     - host: "internal.dev.id.sso.solidstateops.com" 
+#       http:
+#         paths:
+#         - path: /
+#           pathType: Prefix
+#           backend:
+#             service:
+#               name: aspnetapp
+#               port: 
+#                 number: 80
 
 ---
 
@@ -59,16 +81,13 @@ metadata:
     appgw.ingress.kubernetes.io/use-private-ip: "true"
 spec:
   rules:
-    - host: "internal.dev.id.sso.solidstateops.com" 
+    - host: internal.dev.id.sso.solidstateops.com
       http:
         paths:
         - path: /
-          pathType: Prefix
           backend:
-            service:
-              name: aspnetapp
-              port: 
-                number: 80
+            serviceName: aspnetapp
+            servicePort: 80
 
 
 
