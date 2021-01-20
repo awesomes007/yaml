@@ -81,9 +81,9 @@ metadata:
     appgw.ingress.kubernetes.io/use-private-ip: "true"
 spec:
   rules:
+  - host: internal.dev.id.sso.solidstateops.com
   - http:
-      paths:
-      - host: internal.dev.id.sso.solidstateops.com
+      paths:      
       - path: /
         pathType: Prefix
         backend:
