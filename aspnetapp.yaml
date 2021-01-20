@@ -86,8 +86,10 @@ spec:
         paths:
         - path: /
           backend:
-            serviceName: aspnetapp
-            servicePort: 80
+            service:
+              name: aspnetapp
+              port: 
+                number: 80
 
 
 
