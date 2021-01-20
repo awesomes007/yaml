@@ -37,16 +37,15 @@ metadata:
     appgw.ingress.kubernetes.io/use-private-ip: "false"
 spec:
   rules:
-  - host: "dev.id.sso.solidstateops.com" 
-    http:
-      paths:
-        pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: aspnetapp
-            port: 
-              number: 80
+    - host: "dev.id.sso.solidstateops.com" 
+      http:
+        paths:
+        - path: /
+          backend:
+            service:
+              name: aspnetapp
+              port: 
+                number: 80
 
 ---
 
@@ -59,13 +58,12 @@ metadata:
     appgw.ingress.kubernetes.io/use-private-ip: "true"
 spec:
   rules:
-  - host: "internal.dev.id.sso.solidstateops.com" 
-    http:
-      paths:
-        pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: aspnetapp
-            port: 
-              number: 80
+    - host: "internal.dev.id.sso.solidstateops.com" 
+      http:
+        paths:
+        - path: /
+          backend:
+            service:
+              name: aspnetapp
+              port: 
+                number: 80
