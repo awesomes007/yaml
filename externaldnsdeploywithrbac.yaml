@@ -68,32 +68,65 @@ spec:
         secret:
           secretName: azure-config-file
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: externaldns
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  name: externaldns
+rules:
+- apiGroups: [""]
+  resources: ["services","endpoints","pods"]
+  verbs: ["get","watch","list"]
+- apiGroups: ["extensions","networking.k8s.io"]
+  resources: ["ingresses"]
+  verbs: ["get","watch","list"]
+- apiGroups: [""]
+  resources: ["nodes"]
+  verbs: ["get", "watch", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: externaldns-viewer
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: externaldns
+subjects:
+- kind: ServiceAccount
+  name: externaldns
+  namespace: default
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: external-dns2
+  name: externaldnspriv
 spec:
-  strategy:
-    type: Recreate
   selector:
     matchLabels:
-      app: external-dns
+      app: externaldnspriv
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
-        app: external-dns
+        app: externaldnspriv
     spec:
-      serviceAccountName: external-dns
+      serviceAccountName: externaldns
       containers:
-      - name: external-dns
-        image: k8s.gcr.io/external-dns/external-dns:v0.7.3 
+      - name: externaldns
+        image: k8s.gcr.io/external-dns/external-dns:v0.7.3
         args:
         - --source=service
         - --source=ingress
-        #- --domain-filter=example.com # (optional) limit to only example.com domains; change to match the zone created above.
-        - --domain-filter=internal.dev.hi.sso.solidstateops.com # (optional) limit to only example.com domains; change to match the zone created above.
-        - --provider=azure
-        - --azure-resource-group=dev-hi-sso-arg-tf # (optional) use the DNS zones from the tutorial's resource group
+        - --domain-filter=internal.dev.hi.sso.solidstateops.com 
+        - --provider=azure-private-dns
+        - --azure-resource-group=externaldns
+        - --azure-subscription-id=<use the id of your subscription>
         volumeMounts:
         - name: azure-config-file
           mountPath: /etc/kubernetes
