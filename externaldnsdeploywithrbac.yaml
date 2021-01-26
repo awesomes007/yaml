@@ -56,7 +56,7 @@ spec:
         - --source=service
         - --source=ingress
         #- --domain-filter=example.com # (optional) limit to only example.com domains; change to match the zone created above.
-        #- --domain-filter=dev.hi.sso.solidstateops.com # (optional) limit to only example.com domains; change to match the zone created above.
+        - --domain-filter=dev.hi.sso.solidstateops.com # (optional) limit to only example.com domains; change to match the zone created above.
         - --provider=azure
         - --azure-resource-group=dev-hi-sso-arg-tf # (optional) use the DNS zones from the tutorial's resource group
         volumeMounts:
