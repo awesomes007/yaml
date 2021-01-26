@@ -3,7 +3,6 @@ kind: ServiceAccount
 metadata:
   name: external-dns
 ---
-#apiVersion: rbac.authorization.k8s.io/v1beta1
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -19,7 +18,6 @@ rules:
   resources: ["nodes"]
   verbs: ["list"]
 ---
-#apiVersion: rbac.authorization.k8s.io/v1beta1
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -55,6 +53,7 @@ spec:
         args:
         - --source=service
         - --source=ingress
+        - --domain-filter=dev.hi.solidstateops.com # (optional) limit to only example.com domains; change to match the zone created above.
         - --provider=azure
         volumeMounts:
         - name: azure-config-file
