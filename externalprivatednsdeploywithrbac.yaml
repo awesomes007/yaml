@@ -54,7 +54,6 @@ spec:
         - --source=service
         - --source=ingress
         - --provider=azure-private-dns
-        - --azure-resource-group=dev-hi-sso-arg-tf
         volumeMounts:
         - name: azure-config-file
           mountPath: /etc/kubernetes
