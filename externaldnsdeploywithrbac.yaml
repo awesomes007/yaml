@@ -126,7 +126,8 @@ spec:
         - --domain-filter=internal.dev.hi.sso.solidstateops.com 
         - --provider=azure-private-dns
         - --azure-resource-group=dev-hi-sso-arg-tf
-        - --azure-subscription-id=<use the id of your subscription>
+        #- --azure-subscription-id=<use the id of your subscription>
+        - --azure-subscription-id=8fb55161-82ce-4110-9cbb-3400b5271a8c
         volumeMounts:
         - name: azure-config-file
           mountPath: /etc/kubernetes
