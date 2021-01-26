@@ -125,7 +125,7 @@ spec:
         - --source=ingress
         - --domain-filter=internal.dev.hi.sso.solidstateops.com 
         - --provider=azure-private-dns
-        - --azure-resource-group=externaldns
+        - --azure-resource-group=dev-hi-sso-arg-tf
         - --azure-subscription-id=<use the id of your subscription>
         volumeMounts:
         - name: azure-config-file
