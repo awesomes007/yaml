@@ -68,39 +68,6 @@ spec:
         secret:
           secretName: azure-config-file
 ---
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: externaldns
----
-apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: ClusterRole
-metadata:
-  name: externaldns
-rules:
-- apiGroups: [""]
-  resources: ["services","endpoints","pods"]
-  verbs: ["get","watch","list"]
-- apiGroups: ["extensions","networking.k8s.io"]
-  resources: ["ingresses"]
-  verbs: ["get","watch","list"]
-- apiGroups: [""]
-  resources: ["nodes"]
-  verbs: ["get", "watch", "list"]
----
-apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: ClusterRoleBinding
-metadata:
-  name: externaldns-viewer
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: externaldns
-subjects:
-- kind: ServiceAccount
-  name: externaldns
-  namespace: default
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
