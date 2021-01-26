@@ -32,69 +32,33 @@ subjects:
 - kind: ServiceAccount
   name: external-dns
   namespace: default
-# ---
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: external-dns
-# spec:
-#   strategy:
-#     type: Recreate
-#   selector:
-#     matchLabels:
-#       app: external-dns
-#   template:
-#     metadata:
-#       labels:
-#         app: external-dns
-#     spec:
-#       serviceAccountName: external-dns
-#       containers:
-#       - name: external-dns
-#         image: k8s.gcr.io/external-dns/external-dns:v0.7.3 
-#         args:
-#         - --source=service
-#         - --source=ingress
-#         #- --domain-filter=example.com # (optional) limit to only example.com domains; change to match the zone created above.
-#         - --domain-filter=dev.hi.sso.solidstateops.com # (optional) limit to only example.com domains; change to match the zone created above.
-#         - --provider=azure
-#         - --azure-resource-group=dev-hi-sso-arg-tf # (optional) use the DNS zones from the tutorial's resource group
-#         volumeMounts:
-#         - name: azure-config-file
-#           mountPath: /etc/kubernetes
-#           readOnly: true
-#       volumes:
-#       - name: azure-config-file
-#         secret:
-#           secretName: azure-config-file
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: externaldnspriv
+  name: external-dns
 spec:
-  selector:
-    matchLabels:
-      app: externaldnspriv
   strategy:
     type: Recreate
+  selector:
+    matchLabels:
+      app: external-dns
   template:
     metadata:
       labels:
-        app: externaldnspriv
+        app: external-dns
     spec:
-      serviceAccountName: externaldns
+      serviceAccountName: external-dns
       containers:
-      - name: externaldns
-        image: k8s.gcr.io/external-dns/external-dns:v0.7.3
+      - name: external-dns
+        image: k8s.gcr.io/external-dns/external-dns:v0.7.3 
         args:
         - --source=service
         - --source=ingress
-        - --domain-filter=internal.dev.hi.sso.solidstateops.com 
-        - --provider=azure-private-dns
-        - --azure-resource-group=dev-hi-sso-arg-tf
-        #- --azure-subscription-id=<use the id of your subscription>
-        - --azure-subscription-id=8fb55161-82ce-4110-9cbb-3400b5271a8c
+        #- --domain-filter=example.com # (optional) limit to only example.com domains; change to match the zone created above.
+        - --domain-filter=dev.hi.sso.solidstateops.com # (optional) limit to only example.com domains; change to match the zone created above.
+        - --provider=azure
+        - --azure-resource-group=dev-hi-sso-arg-tf # (optional) use the DNS zones from the tutorial's resource group
         volumeMounts:
         - name: azure-config-file
           mountPath: /etc/kubernetes
