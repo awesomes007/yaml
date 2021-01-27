@@ -63,8 +63,8 @@ spec:
       - name: azure-config-file
         secret:
           secretName: azure-config-file
-          apiVersion: v1
 ---
+apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: externaldns
