@@ -54,6 +54,7 @@ spec:
         - --source=service
         - --source=ingress
         - --provider=azure-private-dns
+        - --domain-filter=dev.hi.internal.solidstateops.com # (optional) limit to only example.com domains; change to match the zone created above.
         volumeMounts:
         - name: azure-config-file
           mountPath: /etc/kubernetes
