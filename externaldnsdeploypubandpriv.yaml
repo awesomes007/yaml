@@ -121,7 +121,7 @@ spec:
         - name: AZURE_CLIENT_ID
           value: ab510f99-b7ec-4b21-ae9b-a0079962dd30
         - name: AZURE_CLIENT_SECRET
-          value: Lra1KEYQ8~2i-kuDfo.ihGK6wnW6AxpyD3
+          value: 4~-o76KN0l6JT60FJ8LC_A3cwfwWV_OtsG
         - name: AZURE_SUBSCRIPTION_ID
           value: 8fb55161-82ce-4110-9cbb-3400b5271a8c
         - name: AZURE_TENANT_ID
