@@ -55,6 +55,7 @@ spec:
         - --source=ingress
         - --domain-filter=dev.hi.solidstateops.com # (optional) limit to only example.com domains; change to match the zone created above.
         - --provider=azure
+        - --azure-subscription-id=8fb55161-82ce-4110-9cbb-3400b5271a8c #this is called out by https://github.com/kubernetes-sigs/external-dns/issues/1782 as required for private dns externalDNS deployment, but i'm adding it to this private DNS args just in case
         volumeMounts:
         - name: azure-config-file
           mountPath: /etc/kubernetes
@@ -118,9 +119,9 @@ spec:
         image: k8s.gcr.io/external-dns/external-dns:v0.7.3
         env:
         - name: AZURE_CLIENT_ID
-          value: 0f57e2ec-fb31-443f-a4bd-48eed89ddec3
+          value: 6bd1cb5e-d2c4-4fde-95ab-df15073be54d
         - name: AZURE_CLIENT_SECRET
-          value: H~HEM3e4yA5pKx-Q1T0-y1fxwlnW_bLA7A
+          value: kH7kdxj_GINdMVT~7vhp4cVX2guJIjtQM.
         - name: AZURE_SUBSCRIPTION_ID
           value: 8fb55161-82ce-4110-9cbb-3400b5271a8c
         - name: AZURE_TENANT_ID
@@ -130,6 +131,7 @@ spec:
         - --source=ingress
         - --provider=azure-private-dns
         - --domain-filter=dev.hi.internal.solidstateops.com # (optional) limit to only example.com domains; change to match the zone created above.
+        - --azure-subscription-id=8fb55161-82ce-4110-9cbb-3400b5271a8c #this is called out by https://github.com/kubernetes-sigs/external-dns/issues/1782 as required for private dns externalDNS deployment, but i'm not sure of that yet
         volumeMounts:
         - name: azure-config-file
           mountPath: /etc/kubernetes
