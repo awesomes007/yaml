@@ -117,17 +117,6 @@ spec:
       containers:
       - name: externaldnsprivate
         image: k8s.gcr.io/external-dns/external-dns:v0.7.6
-        env:
-        - name: AZURE_CLIENT_ID
-          value: "8b77d83b-229f-410b-b889-0df015ac1313"
-        - name: AZURE_CLIENT_SECRET
-          value: "bT0Wn-fj2yA~9gloOGVNVjMb3TpdxO2OxJ"
-        - name: AZURE_SUBSCRIPTION_ID
-          value: "8fb55161-82ce-4110-9cbb-3400b5271a8c"
-        - name: AZURE_TENANT_ID
-          value: "88d74dfa-951f-4916-8b9e-bebe3a025601"
-        - name: AZURE_RESOURCE_GROUP
-          value: "dev-hi-sso-arg-tf"
         args:
         - --source=service
         - --source=ingress
