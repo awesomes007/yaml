@@ -33,7 +33,7 @@ metadata:
     appgw.ingress.kubernetes.io/use-private-ip: "true"
 spec:
   rules:
-  - host: dev.hi.internal.tfdev.solidstateops.com
+  - host: solidstateops.com
     http:
       paths:      
       - pathType: Prefix

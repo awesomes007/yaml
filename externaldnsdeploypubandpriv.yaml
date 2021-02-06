@@ -119,9 +119,9 @@ spec:
         image: k8s.gcr.io/external-dns/external-dns:v0.7.6
         env:
         - name: AZURE_CLIENT_ID
-          value: "8b77d83b-229f-410b-b889-0df015ac1313"
+          value: "e0cf266b-31a1-4cb3-b4a4-2cc1acc08f24"
         - name: AZURE_CLIENT_SECRET
-          value: "bT0Wn-fj2yA~9gloOGVNVjMb3TpdxO2OxJ"
+          value: "NrZyKj1WckKbJhJnx9xLJs7kgM-86k.fhI"
         - name: AZURE_SUBSCRIPTION_ID
           value: "8fb55161-82ce-4110-9cbb-3400b5271a8c"
         - name: AZURE_TENANT_ID
@@ -132,7 +132,7 @@ spec:
         - --source=service
         - --source=ingress
         - --provider=azure-private-dns
-        - --domain-filter=dev.hi.internal.tfdev.solidstateops.com # (optional) limit to only example.com domains; change to match the zone created above.
+        - --domain-filter=solidstateops.com # (optional) limit to only example.com domains; change to match the zone created above.
         - --azure-subscription-id=8fb55161-82ce-4110-9cbb-3400b5271a8c #this is called out by https://github.com/kubernetes-sigs/external-dns/issues/1782 as required for private dns externalDNS deployment, but i'm not sure of that yet
         - --azure-resource-group=dev-hi-sso-arg-tf
         volumeMounts:
