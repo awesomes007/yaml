@@ -34,10 +34,10 @@ metadata:
 spec:
   rules:
   - host: internal.sso
-    http:
+  - http:
       paths:      
-      - pathType: Prefix
-        path: /
+      - path: /
+        pathType: Prefix
         backend:
           serviceName: aspnetapppriv
           servicePort: 80
@@ -52,10 +52,10 @@ metadata:
 spec:
   rules:
   - host: tfdev.solidstateops.com
-    http:
+  - http:
       paths:      
-      - pathType: Prefix
-        path: /
-        backend:
-          serviceName: aspnetapppub
-          servicePort: 80
+      - path: /
+        pathType: Prefix
+      backend:
+        serviceName: aspnetapppub
+        servicePort: 80
