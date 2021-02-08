@@ -39,10 +39,8 @@ spec:
       - pathType: Prefix
         path: /
         backend:
-          service:
-            name: aspnetapppriv
-            port: 
-              number: 80
+          serviceName: aspnetapppriv
+          servicePort: 80
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -59,7 +57,5 @@ spec:
       - pathType: Prefix
         path: /
         backend:
-          service:
-            name: aspnetapppub
-            port: 
-              number: 80
+          serviceName: aspnetapppub
+          servicePort: 80
