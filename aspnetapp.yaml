@@ -40,7 +40,7 @@ spec:
         path: /
         backend:
           service:
-            name: aspnetapp
+            name: aspnetapppriv
             port: 
               number: 80
 ---
@@ -60,6 +60,6 @@ spec:
         path: /
         backend:
           service:
-            name: aspnetapp
+            name: aspnetapppub
             port: 
               number: 80
