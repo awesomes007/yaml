@@ -56,6 +56,6 @@ spec:
       paths:      
       - path: /
         pathType: Prefix
-      backend:
-        serviceName: aspnetapppub
-        servicePort: 80
+        backend:
+          serviceName: aspnetapppub
+          servicePort: 80
