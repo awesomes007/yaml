@@ -24,7 +24,7 @@ spec:
     port: 80
     targetPort: 80
 ---
-apiVersion: networking.k8s.io/v1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: aspnetapp-private
@@ -42,7 +42,7 @@ spec:
           serviceName: aspnetapppriv
           servicePort: 80
 ---
-apiVersion: networking.k8s.io/v1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: aspnetapp-public
