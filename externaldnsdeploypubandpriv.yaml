@@ -64,82 +64,82 @@ spec:
       - name: azure-config-file
         secret:
           secretName: azure-config-file
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: externaldnsprivate
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: externaldnsprivate
-rules:
-- apiGroups: [""]
-  resources: ["services","endpoints","pods"]
-  verbs: ["get","watch","list"]
-- apiGroups: ["extensions","networking.k8s.io"]
-  resources: ["ingresses"]
-  verbs: ["get","watch","list"]
-- apiGroups: [""]
-  resources: ["nodes"]
-  verbs: ["get", "watch", "list"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: externaldnsprivate-viewer
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: externaldnsprivate
-subjects:
-- kind: ServiceAccount
-  name: externaldnsprivate
-  namespace: default
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: externaldnsprivate
-spec:
-  selector:
-    matchLabels:
-      app: externaldnsprivate
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: externaldnsprivate
-    spec:
-      serviceAccountName: externaldnsprivate
-      containers:
-      - name: externaldnsprivate
-        image: k8s.gcr.io/external-dns/external-dns:v0.7.6
-        env:
-        - name: AZURE_CLIENT_ID
-          value: "edb5d7e6-1920-4604-af62-b9aafd9b4cc0"
-        - name: AZURE_CLIENT_SECRET
-          value: "7W.zplHJZgOU.R2w3vYkzD-8zRbR7o35My"
-        - name: AZURE_SUBSCRIPTION_ID
-          value: "8fb55161-82ce-4110-9cbb-3400b5271a8c"
-        - name: AZURE_TENANT_ID
-          value: "88d74dfa-951f-4916-8b9e-bebe3a025601"
-        - name: AZURE_RESOURCE_GROUP
-          value: "dev-hi-sso-arg-tf"
-        args:
-        - --source=service
-        - --source=ingress
-        - --provider=azure-private-dns
-        - --domain-filter=internal.sso # (optional) limit to only example.com domains; change to match the zone created above.
-        - --azure-subscription-id=8fb55161-82ce-4110-9cbb-3400b5271a8c #this is called out by https://github.com/kubernetes-sigs/external-dns/issues/1782 as required for private dns externalDNS deployment, but i'm not sure of that yet
-        - --azure-resource-group=dev-hi-sso-arg-tf
-        volumeMounts:
-        - name: azure-config-file
-          mountPath: /etc/kubernetes
-          readOnly: true
-      volumes:
-      - name: azure-config-file
-        secret:
-          secretName: azure-config-file
+# ---
+# apiVersion: v1
+# kind: ServiceAccount
+# metadata:
+#   name: externaldnsprivate
+# ---
+# apiVersion: rbac.authorization.k8s.io/v1
+# kind: ClusterRole
+# metadata:
+#   name: externaldnsprivate
+# rules:
+# - apiGroups: [""]
+#   resources: ["services","endpoints","pods"]
+#   verbs: ["get","watch","list"]
+# - apiGroups: ["extensions","networking.k8s.io"]
+#   resources: ["ingresses"]
+#   verbs: ["get","watch","list"]
+# - apiGroups: [""]
+#   resources: ["nodes"]
+#   verbs: ["get", "watch", "list"]
+# ---
+# apiVersion: rbac.authorization.k8s.io/v1
+# kind: ClusterRoleBinding
+# metadata:
+#   name: externaldnsprivate-viewer
+# roleRef:
+#   apiGroup: rbac.authorization.k8s.io
+#   kind: ClusterRole
+#   name: externaldnsprivate
+# subjects:
+# - kind: ServiceAccount
+#   name: externaldnsprivate
+#   namespace: default
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: externaldnsprivate
+# spec:
+#   selector:
+#     matchLabels:
+#       app: externaldnsprivate
+#   strategy:
+#     type: Recreate
+#   template:
+#     metadata:
+#       labels:
+#         app: externaldnsprivate
+#     spec:
+#       serviceAccountName: externaldnsprivate
+#       containers:
+#       - name: externaldnsprivate
+#         image: k8s.gcr.io/external-dns/external-dns:v0.7.6
+#         env:
+#         - name: AZURE_CLIENT_ID
+#           value: "edb5d7e6-1920-4604-af62-b9aafd9b4cc0"
+#         - name: AZURE_CLIENT_SECRET
+#           value: "7W.zplHJZgOU.R2w3vYkzD-8zRbR7o35My"
+#         - name: AZURE_SUBSCRIPTION_ID
+#           value: "8fb55161-82ce-4110-9cbb-3400b5271a8c"
+#         - name: AZURE_TENANT_ID
+#           value: "88d74dfa-951f-4916-8b9e-bebe3a025601"
+#         - name: AZURE_RESOURCE_GROUP
+#           value: "dev-hi-sso-arg-tf"
+#         args:
+#         - --source=service
+#         - --source=ingress
+#         - --provider=azure-private-dns
+#         - --domain-filter=internal.sso # (optional) limit to only example.com domains; change to match the zone created above.
+#         - --azure-subscription-id=8fb55161-82ce-4110-9cbb-3400b5271a8c #this is called out by https://github.com/kubernetes-sigs/external-dns/issues/1782 as required for private dns externalDNS deployment, but i'm not sure of that yet
+#         - --azure-resource-group=dev-hi-sso-arg-tf
+#         volumeMounts:
+#         - name: azure-config-file
+#           mountPath: /etc/kubernetes
+#           readOnly: true
+#       volumes:
+#       - name: azure-config-file
+#         secret:
+#           secretName: azure-config-file
