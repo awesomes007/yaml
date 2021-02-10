@@ -23,24 +23,24 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 80
-#---
-# apiVersion: networking.k8s.io/v1beta1
-# kind: Ingress
-# metadata:
-#   name: aspnetapp-private
-#   annotations:
-#     kubernetes.io/ingress.class: azure/application-gateway
-#     appgw.ingress.kubernetes.io/use-private-ip: "true"
-# spec:
-#   rules:
-#   - host: internal.sso
-#   - http:
-#       paths:      
-#       - path: /
-#         pathType: Prefix
-#         backend:
-#           serviceName: aspnetapp
-#           servicePort: 80
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: aspnetapp-private
+  annotations:
+    kubernetes.io/ingress.class: azure/application-gateway
+    appgw.ingress.kubernetes.io/use-private-ip: "true"
+spec:
+  rules:
+  - host: internal.sso
+  - http:
+      paths:      
+      - path: /
+        pathType: Prefix
+        backend:
+          serviceName: aspnetapp
+          servicePort: 80
 ---
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
