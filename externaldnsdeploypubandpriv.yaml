@@ -119,9 +119,9 @@ spec:
         image: k8s.gcr.io/external-dns/external-dns:v0.7.6
         env:
         - name: AZURE_CLIENT_ID
-          value: "edb5d7e6-1920-4604-af62-b9aafd9b4cc0"
+          value: "d7bf4d28-0f4e-4a16-b8da-9d0b29f991b0"
         - name: AZURE_CLIENT_SECRET
-          value: "7W.zplHJZgOU.R2w3vYkzD-8zRbR7o35My"
+          value: "d4fLAMXo__bD1Z1FLEbTtE09z72xaCgaR_"
         - name: AZURE_SUBSCRIPTION_ID
           value: "8fb55161-82ce-4110-9cbb-3400b5271a8c"
         - name: AZURE_TENANT_ID
