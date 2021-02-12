@@ -3,7 +3,8 @@ kind: ServiceAccount
 metadata:
   name: externaldnspublic
 ---
-apiVersion: rbac.authorization.k8s.io/v1
+#apiVersion: rbac.authorization.k8s.io/v1
+apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
 metadata:
   name: externaldnspublic
@@ -18,7 +19,8 @@ rules:
   resources: ["nodes"]
   verbs: ["list"]
 ---
-apiVersion: rbac.authorization.k8s.io/v1
+#apiVersion: rbac.authorization.k8s.io/v1
+apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
   name: externaldnspublic-viewer
@@ -71,6 +73,7 @@ spec:
 #   name: externaldnsprivate
 # ---
 # apiVersion: rbac.authorization.k8s.io/v1
+#apiVersion: rbac.authorization.k8s.io/v1beta1
 # kind: ClusterRole
 # metadata:
 #   name: externaldnsprivate
@@ -86,6 +89,7 @@ spec:
 #   verbs: ["get", "watch", "list"]
 # ---
 # apiVersion: rbac.authorization.k8s.io/v1
+#apiVersion: rbac.authorization.k8s.io/v1beta1
 # kind: ClusterRoleBinding
 # metadata:
 #   name: externaldnsprivate-viewer
